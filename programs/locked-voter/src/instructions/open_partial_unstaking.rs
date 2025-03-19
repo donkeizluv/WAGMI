@@ -4,6 +4,9 @@ use crate::*;
 #[derive(Accounts)]
 #[instruction(amount: u64, memo: String)]
 pub struct OpenPartialUnstaking<'info> {
+    #[account(mut)]
+    pub payer: Signer<'info>,
+
     /// [Locker].
     #[account(mut)]
     pub locker: Box<Account<'info, Locker>>,
@@ -15,7 +18,7 @@ pub struct OpenPartialUnstaking<'info> {
     /// [Escrow].
     #[account(
         init,
-        payer = owner,
+        payer = payer,
         space = 8 + PartialUnstaking::LEN + 4 + memo.as_bytes().len()
     )]
     pub partial_unstake: Account<'info, PartialUnstaking>,

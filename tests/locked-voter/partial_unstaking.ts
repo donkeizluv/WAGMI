@@ -258,6 +258,7 @@ describe("Partial unstaking", () => {
         const memo = "user_id_2369";
         // open partial unstaking
         await voterProgram.methods.openPartialUnstaking(partialUnstakingAmount, memo).accounts({
+            payer: userKeypair.publicKey,
             escrow,
             locker,
             partialUnstake: partialUnstakeKP.publicKey,
@@ -306,6 +307,7 @@ describe("Partial unstaking", () => {
         const partialUnstakeKP = web3.Keypair.generate();
         // open partial unstaking
         await voterProgram.methods.openPartialUnstaking(partialUnstakingAmount, "").accounts({
+            payer: userKeypair.publicKey,
             escrow,
             locker,
             partialUnstake: partialUnstakeKP.publicKey,
